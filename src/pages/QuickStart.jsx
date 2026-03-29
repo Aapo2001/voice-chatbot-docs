@@ -22,34 +22,49 @@ export default function QuickStart() {
         <li><strong>CUDA toolkit</strong> &mdash; DLL path defaults to <code>D:\cuda</code> (override with <code>CUDA_PATH</code> env var)</li>
       </ul>
 
-      <h2>1. Install Dependencies</h2>
-      <CodeBlock language="bash">{`# Create pixi environment with all conda dependencies
+      <h2>Option A: Install from PyPI</h2>
+      <CodeBlock language="bash">{`# Full installation (all components)
+pip install voice-chatbot[all]
+
+# Download model files
+voice-chatbot-setup-models
+
+# Run the GUI
+voice-chatbot-app`}</CodeBlock>
+      <p>
+        You can also install specific components: <code>pip install voice-chatbot[stt,llm,tts,vad,gui]</code>
+      </p>
+
+      <h2>Option B: Install from Source (with pixi)</h2>
+      <CodeBlock language="bash">{`# Create pixi environment
 pixi install
 
 # Install pip packages (torch, TTS, faster-whisper, etc.)
-pixi run install-python-deps`}</CodeBlock>
+pixi run install-python-deps
 
-      <h2>2. Download Models</h2>
-      <CodeBlock language="bash">{`# Download LLM, Whisper, VAD, and TTS model files
+# Download model files
 pixi run setup-models`}</CodeBlock>
       <p>
         Models are downloaded to the <code>models/</code> directory (gitignored).
         This includes Whisper, Silero-VAD, the GGUF LLM, and Coqui TTS models.
       </p>
 
-      <h2>3. Run the Application</h2>
+      <h2>Run the Application</h2>
 
       <h3>GUI (Primary Interface)</h3>
-      <CodeBlock language="bash">{`pixi run app
-# or directly:
-python app.py`}</CodeBlock>
+      <CodeBlock language="bash">{`voice-chatbot-app
+# or with pixi: pixi run app
+# or: python -m voice_chatbot.app`}</CodeBlock>
       <p>
-        The PySide6 desktop GUI provides real-time status display, waveform visualization,
-        conversation history, and a settings panel.
+        The PySide6 desktop GUI provides a chat panel with text input, settings sidebar,
+        system log, and start/stop/restart controls. Text input lets you type messages
+        directly to the LLM. TTS can be toggled on/off in settings without restarting.
       </p>
 
       <h3>CLI (Headless)</h3>
-      <CodeBlock language="bash">{`python chatbot.py`}</CodeBlock>
+      <CodeBlock language="bash">{`voice-chatbot
+# or with pixi: pixi run chatbot
+# or: python -m voice_chatbot.chatbot`}</CodeBlock>
       <p>
         The CLI runner operates in a single-threaded audio loop &mdash; useful for
         headless servers or debugging.

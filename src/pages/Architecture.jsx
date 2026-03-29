@@ -5,8 +5,8 @@ export default function Architecture() {
     <div className="page">
       <h1>Architecture</h1>
       <p className="page-intro">
-        The voice chatbot uses a modular pipeline architecture where each stage can run
-        standalone or as a distributed ROS 2 node.
+        The voice chatbot uses a modular pipeline architecture. Each stage is a standalone
+        module within the <code>voice_chatbot</code> pip package.
       </p>
 
       <h2>Pipeline</h2>
@@ -35,10 +35,9 @@ export default function Architecture() {
             <tr><th>File</th><th>Purpose</th></tr>
           </thead>
           <tbody>
-            <tr><td><code>app.py</code></td><td>PySide6 desktop GUI &mdash; standalone (loads all models in-process)</td></tr>
-            <tr><td><code>ros_app.py</code></td><td>PySide6 desktop GUI &mdash; ROS 2 (connects to split nodes via topics)</td></tr>
-            <tr><td><code>chatbot.py</code></td><td>Headless CLI runner (single-threaded audio loop)</td></tr>
-            <tr><td><code>setup_models.py</code></td><td>Downloads and validates all models before first run</td></tr>
+            <tr><td><code>voice-chatbot-app</code></td><td>PySide6 desktop GUI (loads all models in-process)</td></tr>
+            <tr><td><code>voice-chatbot</code></td><td>Headless CLI runner (single-threaded audio loop)</td></tr>
+            <tr><td><code>voice-chatbot-setup-models</code></td><td>Downloads and validates all models before first run</td></tr>
           </tbody>
         </table>
       </div>
@@ -111,10 +110,11 @@ export default function Architecture() {
         </p>
       </div>
       <div className="callout">
-        <h4>ROS 2 Mode</h4>
+        <h4>ROS 2 Mode (separate package)</h4>
         <p>
-          Each node uses a queue + daemon thread pattern. ROS callbacks enqueue work,
-          and a background thread processes it sequentially.
+          ROS 2 integration is available via the separate{' '}
+          <a href="https://github.com/Aapo2001/voice-chatbot-ros" target="_blank" rel="noopener noreferrer">voice-chatbot-ros</a>{' '}
+          package. Each ROS node uses a queue + daemon thread pattern.
         </p>
       </div>
 

@@ -28,7 +28,7 @@ const features = [
   },
   {
     title: 'ROS 2 Integration',
-    desc: 'Split-node architecture on ROS 2 Humble via Robostack for modular deployment.',
+    desc: 'Optional split-node architecture on ROS 2 Humble via a separate package.',
     icon: '{',
   },
 ]
@@ -39,8 +39,8 @@ export default function Home() {
       <div className="hero-section">
         <h1>Voice Chatbot</h1>
         <p className="hero-subtitle">
-          A local speech-to-speech voice assistant with PySide6 GUI, CLI, and ROS 2 Humble integration.
-          Fully offline, GPU-accelerated, and privacy-first.
+          A local speech-to-speech voice assistant with PySide6 GUI and CLI.
+          Fully offline, GPU-accelerated, and privacy-first. Available on PyPI.
         </p>
         <div className="hero-actions">
           <Link to="/quick-start" className="btn btn-primary">Get Started</Link>
@@ -94,7 +94,7 @@ export default function Home() {
             ['llama-cpp-python', 'LLM Inference'],
             ['Coqui TTS', 'Text-to-Speech'],
             ['sounddevice', 'Audio I/O'],
-            ['ROS 2 Humble', 'Robot Framework'],
+            ['PyPI', 'Package Distribution'],
             ['pixi', 'Package Manager'],
             ['CUDA', 'GPU Acceleration'],
           ].map(([name, role]) => (

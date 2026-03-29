@@ -43,6 +43,7 @@ export default function Configuration() {
             <tr><th>Field</th><th>Type</th><th>Description</th></tr>
           </thead>
           <tbody>
+            <tr><td><code>tts_enabled</code></td><td>bool</td><td>Enable/disable TTS playback (can be toggled in GUI without restart)</td></tr>
             <tr><td><code>tts_model</code></td><td>string</td><td>Coqui TTS model identifier (from model zoo)</td></tr>
             <tr><td><code>tts_model_path</code></td><td>string</td><td>Path to a local TTS model file (alternative to model zoo)</td></tr>
             <tr><td><code>tts_config_path</code></td><td>string</td><td>Path to the TTS model config (used with local models)</td></tr>
