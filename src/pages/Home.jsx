@@ -49,12 +49,26 @@ export default function Home() {
       </div>
 
       <div className="pipeline-section">
-        <h2>Install in 3 commands</h2>
+        <h2>Install from PyPI</h2>
         <div className="pipeline-diagram">
           <pre style={{ textAlign: 'left', margin: '0 auto', display: 'inline-block' }}>
 {`pip install voice-chatbot[all]
 voice-chatbot-setup-models
 voice-chatbot-app`}
+          </pre>
+        </div>
+      </div>
+
+      <div className="pipeline-section">
+        <h2>Install from source (pixi)</h2>
+        <div className="pipeline-diagram">
+          <pre style={{ textAlign: 'left', margin: '0 auto', display: 'inline-block' }}>
+{`git clone https://github.com/Aapo2001/python-chatbot.git
+cd python-chatbot
+pixi install
+pixi run install-python-deps
+pixi run setup-models
+pixi run app`}
           </pre>
         </div>
       </div>

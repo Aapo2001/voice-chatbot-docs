@@ -47,19 +47,19 @@ voice-chatbot-app`}</CodeBlock>
         </ul>
       </div>
 
-      <h2>Option B: Install from source</h2>
-      <p>For development or if you want to modify the code:</p>
-      <CodeBlock language="bash">{`# Clone the repository
-git clone https://github.com/Aapo2001/python-chatbot.git
+      <h2>Option B: Install from source (pixi)</h2>
+      <p>Recommended for development. Pixi manages both Python and native dependencies:</p>
+      <CodeBlock language="bash">{`git clone https://github.com/Aapo2001/python-chatbot.git
 cd python-chatbot
-
-# Using pixi (recommended for development)
 pixi install
 pixi run install-python-deps
 pixi run setup-models
-pixi run app
+pixi run app`}</CodeBlock>
 
-# Or using pip directly
+      <h2>Option C: Install from source (pip)</h2>
+      <p>If you prefer plain pip without pixi:</p>
+      <CodeBlock language="bash">{`git clone https://github.com/Aapo2001/python-chatbot.git
+cd python-chatbot
 pip install -e ".[all]"
 voice-chatbot-setup-models
 voice-chatbot-app`}</CodeBlock>
