@@ -28,16 +28,31 @@ export default function Architecture() {
         </div>
       </div>
 
+      <h2>Project Structure</h2>
+      <CodeBlock language="text">{`voice_chatbot/
+  __init__.py          # Package root, exports Config and __version__
+  app.py               # PySide6 desktop GUI
+  chatbot.py           # Headless CLI runner
+  config.py            # Config dataclass + JSON persistence
+  audio_io.py          # Microphone capture + speaker playback
+  vad.py               # Silero-VAD wrapper with pre-buffer
+  stt.py               # Whisper STT via faster-whisper
+  llm.py               # LLaMA chat via llama-cpp-python
+  tts_engine.py        # Coqui TTS wrapper
+  ui_common.py         # Shared PySide6 UI components
+  platform_setup.py    # CUDA / PySide6 DLL setup
+  setup_models.py      # Model download and validation`}</CodeBlock>
+
       <h2>Entry Points</h2>
       <div className="table-wrapper">
         <table>
           <thead>
-            <tr><th>File</th><th>Purpose</th></tr>
+            <tr><th>Command</th><th>Module</th><th>Purpose</th></tr>
           </thead>
           <tbody>
-            <tr><td><code>voice-chatbot-app</code></td><td>PySide6 desktop GUI (loads all models in-process)</td></tr>
-            <tr><td><code>voice-chatbot</code></td><td>Headless CLI runner (single-threaded audio loop)</td></tr>
-            <tr><td><code>voice-chatbot-setup-models</code></td><td>Downloads and validates all models before first run</td></tr>
+            <tr><td><code>voice-chatbot-app</code></td><td><code>voice_chatbot.app</code></td><td>PySide6 desktop GUI (loads all models in-process)</td></tr>
+            <tr><td><code>voice-chatbot</code></td><td><code>voice_chatbot.chatbot</code></td><td>Headless CLI runner (single-threaded audio loop)</td></tr>
+            <tr><td><code>voice-chatbot-setup-models</code></td><td><code>voice_chatbot.setup_models</code></td><td>Downloads and validates all models before first run</td></tr>
           </tbody>
         </table>
       </div>
@@ -86,7 +101,14 @@ export default function Architecture() {
       <p>
         Coqui TTS wrapper supporting both local model files and the TTS model zoo.
         Requires <code>espeak-ng</code> for phonemisation. Outputs audio data that
-        is played back through <code>audio_io</code>.
+        is played back through <code>audio_io</code>. Can be toggled on/off at runtime.
+      </p>
+
+      <h3>ui_common.py &mdash; Shared UI Components</h3>
+      <p>
+        Contains the settings sidebar panel used by the GUI. Provides controls for
+        all configuration options including language, model selection, VAD sensitivity,
+        LLM parameters, and the TTS toggle.
       </p>
 
       <h2>Self-Trigger Prevention</h2>
@@ -98,7 +120,7 @@ export default function Architecture() {
         <li>The audio input queue is cleared (<code>clear_queue()</code>)</li>
         <li>The VAD state is reset (<code>vad.reset()</code>)</li>
       </ol>
-      <p>This ensures the system doesn't enter a feedback loop.</p>
+      <p>This ensures the system doesn&apos;t enter a feedback loop.</p>
 
       <h2>Threading Model</h2>
       <div className="callout">
@@ -106,15 +128,15 @@ export default function Architecture() {
         <p>
           Heavy model loading and inference run in <code>QThread</code> workers with
           <code>QueuedConnection</code> signals back to the main thread. This keeps
-          the Qt event loop responsive.
+          the Qt event loop responsive. The worker processes both voice input (from
+          the microphone pipeline) and text input (from the GUI text bar).
         </p>
       </div>
       <div className="callout">
-        <h4>ROS 2 Mode (separate package)</h4>
+        <h4>CLI Mode (chatbot.py)</h4>
         <p>
-          ROS 2 integration is available via the separate{' '}
-          <a href="https://github.com/Aapo2001/voice-chatbot-ros" target="_blank" rel="noopener noreferrer">voice-chatbot-ros</a>{' '}
-          package. Each ROS node uses a queue + daemon thread pattern.
+          Runs all pipeline stages sequentially in a single thread. Simpler but blocks
+          during each stage. Useful for headless servers and debugging.
         </p>
       </div>
 
@@ -124,6 +146,7 @@ export default function Architecture() {
         <li><strong>CUDA DLL setup</strong> &mdash; must run before any CUDA-dependent imports</li>
         <li><strong>Deferred imports</strong> &mdash; heavy libraries are imported inside worker threads to keep GUI startup instant</li>
         <li><strong>Models directory</strong> &mdash; <code>models/</code> is gitignored, created by <code>setup_models.py</code></li>
+        <li><strong>All code in <code>voice_chatbot/</code></strong> &mdash; no Python files at the project root</li>
       </ul>
     </div>
   )

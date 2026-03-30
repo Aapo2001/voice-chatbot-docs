@@ -6,8 +6,8 @@ const nav = [
   { to: '/quick-start', label: 'Quick Start', icon: 'rocket' },
   { to: '/architecture', label: 'Architecture', icon: 'layers' },
   { to: '/configuration', label: 'Configuration', icon: 'settings' },
-  { to: '/ros2', label: 'ROS 2', icon: 'robot' },
   { to: '/api-reference', label: 'API Reference', icon: 'code' },
+  { to: '/ros2', label: 'ROS 2', icon: 'robot' },
 ]
 
 const icons = {
@@ -100,6 +100,15 @@ export default function Layout() {
           ))}
         </nav>
         <div className="sidebar-footer">
+          <a
+            href="https://pypi.org/project/voice-chatbot/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-link"
+          >
+            {icons.code}
+            PyPI
+          </a>
           <a
             href="https://github.com/Aapo2001/python-chatbot"
             target="_blank"

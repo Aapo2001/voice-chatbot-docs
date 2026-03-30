@@ -18,18 +18,18 @@ const features = [
   },
   {
     title: 'Text-to-Speech',
-    desc: 'Natural voice synthesis with Coqui TTS and espeak-ng phonemisation.',
+    desc: 'Natural voice synthesis with Coqui TTS and espeak-ng phonemisation. Toggleable on/off.',
     icon: ')',
   },
   {
     title: 'Desktop GUI',
-    desc: 'PySide6 (Qt 6) interface with real-time status, waveform display, and settings.',
+    desc: 'PySide6 (Qt 6) interface with voice and text input, settings sidebar, and system log.',
     icon: '[',
   },
   {
-    title: 'ROS 2 Integration',
-    desc: 'Optional split-node architecture on ROS 2 Humble via a separate package.',
-    icon: '{',
+    title: 'Easy Install',
+    desc: 'Available on PyPI. One command to install, one to download models, one to run.',
+    icon: '$',
   },
 ]
 
@@ -40,11 +40,22 @@ export default function Home() {
         <h1>Voice Chatbot</h1>
         <p className="hero-subtitle">
           A local speech-to-speech voice assistant with PySide6 GUI and CLI.
-          Fully offline, GPU-accelerated, and privacy-first. Available on PyPI.
+          Fully offline, GPU-accelerated, and privacy-first.
         </p>
         <div className="hero-actions">
           <Link to="/quick-start" className="btn btn-primary">Get Started</Link>
           <Link to="/architecture" className="btn btn-secondary">Learn More</Link>
+        </div>
+      </div>
+
+      <div className="pipeline-section">
+        <h2>Install in 3 commands</h2>
+        <div className="pipeline-diagram">
+          <pre style={{ textAlign: 'left', margin: '0 auto', display: 'inline-block' }}>
+{`pip install voice-chatbot[all]
+voice-chatbot-setup-models
+voice-chatbot-app`}
+          </pre>
         </div>
       </div>
 
@@ -100,6 +111,23 @@ export default function Home() {
           ].map(([name, role]) => (
             <div key={name} className="tech-item">
               <strong>{name}</strong>
+              <span>{role}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="tech-stack">
+        <h2>Related Projects</h2>
+        <div className="tech-grid">
+          {[
+            ['voice-chatbot-ros', 'ROS 2 Humble integration'],
+            ['voice-chatbot-docs', 'This documentation site'],
+          ].map(([name, role]) => (
+            <div key={name} className="tech-item">
+              <a href={`https://github.com/Aapo2001/${name}`} target="_blank" rel="noopener noreferrer">
+                <strong>{name}</strong>
+              </a>
               <span>{role}</span>
             </div>
           ))}
